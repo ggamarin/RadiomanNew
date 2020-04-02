@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class RadioTest {
 
     @Test
-    void increaseVolume() {
+    void shouldIncreaseVolume() {
         Radio radio = new Radio();
         radio.setCurrentVolume(7);
         radio.increaseVolume();
@@ -15,7 +15,7 @@ class RadioTest {
     }
 
     @Test
-    void decreaseVolume() {
+    void shouldDecreaseVolume() {
         Radio radio = new Radio();
         radio.setCurrentVolume(7);
         radio.decreaseVolume();
@@ -23,31 +23,29 @@ class RadioTest {
     }
 
     @Test
-    void nextChannel() {
-        Radio radio = new Radio();
-        radio.setCurrentChannel(6);
+    void shouldSetNextChannel() {
+        Radio radio = new Radio(6,9);
         radio.increaseChannel();
         assertEquals(7, radio.getCurrentChannel());
     }
 
     @Test
-    void previousChannel() {
-        Radio radio = new Radio();
-        radio.setCurrentChannel(6);
+    void shouldSetPreviousChannel() {
+        Radio radio = new Radio(6,9);
         radio.decreaseChannel();
         assertEquals(5, radio.getCurrentChannel());
     }
 
     @Test
-    public void increaseVolumeFromMaxVolume() {
+    public void shouldIncreaseVolumeFromMaxVolume() {
         Radio radio = new Radio();
-        radio.setCurrentVolume(10);
+        radio.setCurrentVolume(100);
         radio.increaseVolume();
-        assertEquals(10, radio.getCurrentVolume());
+        assertEquals(100, radio.getCurrentVolume());
     }
 
     @Test
-    public void decreaseVolumeFromMinVolume() {
+    public void shouldDecreaseVolumeFromMinVolume() {
         Radio radio = new Radio();
         radio.setCurrentVolume(0);
         radio.decreaseVolume();
@@ -55,81 +53,57 @@ class RadioTest {
     }
 
     @Test
-    public void setDesiredChannel() {
+    public void shouldSetDesiredChannel() {
         Radio radio = new Radio();
         radio.setCurrentChannel(5);
         assertEquals(5, radio.getCurrentChannel());
     }
 
     @Test
-    public void previousChannelFromMin() {
-        Radio radio = new Radio();
-        radio.setCurrentChannel(0);
+    public void shouldSetPreviousChannelFromMin() {
+        int expectedMaxChannel = 10;
+        Radio radio = new Radio(0 , expectedMaxChannel);
         radio.decreaseChannel();
+        assertEquals(expectedMaxChannel, radio.getCurrentChannel());
+    }
+
+    @Test
+    public void shouldSetNextChannelFromMax() {
+        Radio radio = new Radio(10, 10);
+        radio.increaseChannel();
+        assertEquals(0, radio.getCurrentChannel());
+    }
+
+    @Test
+    public void shouldNotSetVolumeGreaterThanMax() {
+        Radio radio = new Radio();
+        radio.setCurrentVolume(250);
+        assertEquals(100, radio.getCurrentVolume());
+    }
+
+    @Test
+    public void shouldSetNextChannelFromAnyValue() {
+        Radio radio = new Radio();
+        radio.setCurrentChannel(320);
         assertEquals(9, radio.getCurrentChannel());
     }
 
     @Test
-    public void nextChannelFromMax() {
-        Radio radio = new Radio();
-        radio.setCurrentChannel(9);
-        radio.increaseChannel();
-        assertEquals(0, radio.getCurrentChannel());
-    }
-
-    @Test
-    public void increaseVolumeFromAnyValue() {
-        Radio radio = new Radio();
-        radio.setCurrentVolume(100);
-        radio.increaseVolume();
-        assertEquals(10, radio.getCurrentVolume());
-    }
-
-    @Test
-    public void decreaseVolumeFromAnyValue() {
-        Radio radio = new Radio();
-        radio.setCurrentVolume(100);
-        radio.decreaseVolume();
-        assertEquals(9, radio.getCurrentVolume());
-    }
-
-    @Test
-    //допустим что с пульта можно вводить многозначные номера каналов
-    public void nextChannelFromAnyValue() {
-        Radio radio = new Radio();
-        radio.setCurrentChannel(320);
-        radio.increaseChannel();
-        assertEquals(0, radio.getCurrentChannel());
-    }
-
-    @Test
-    //допустим что с пульта можно вводить многозначные номера каналов
-    public void previousChannelFromAnyValue() {
-        Radio radio = new Radio();
-        radio.setCurrentChannel(320);
-        radio.decreaseChannel();
-        assertEquals(8, radio.getCurrentChannel());
-    }
-
-    @Test
-    //допустим что с пульта можно вводить многозначные номера каналов
-    public void setDesiredChannelAny() {
+    public void shouldSetDesiredChannelAny() {
         Radio radio = new Radio();
         radio.setCurrentChannel(35);
         assertEquals(9, radio.getCurrentChannel());
     }
 
     @Test
-    //допустим что с пульта можно вводить многозначные номера каналов
-    public void setDesiredChannelAnyMinus() {
+    public void shouldSetDesiredChannelAnyMinus() {
         Radio radio = new Radio();
         radio.setCurrentChannel(-35);
         assertEquals(0, radio.getCurrentChannel());
     }
 
     @Test
-    //допустим что с пульта можно вводить многозначные номера каналов, в том числе и отрицательные
-    public void nextChannelFromAnyMinus() {
+    public void shouldSetNextChannelFromAnyMinus() {
         Radio radio = new Radio();
         radio.setCurrentChannel(-320);
         radio.increaseChannel();
@@ -137,8 +111,7 @@ class RadioTest {
     }
 
     @Test
-    //допустим что с пульта можно вводить многозначные номера каналов, в том числе и отрицательные
-    public void previousChannelFromAnyMinus() {
+    public void shouldSetPreviousChannelFromAnyMinus() {
         Radio radio = new Radio();
         radio.setCurrentChannel(-320);
         radio.decreaseChannel();
@@ -146,7 +119,7 @@ class RadioTest {
     }
 
     @Test
-    public void decreaseVolumeFromAnyMinus() {
+    public void shouldDecreaseVolumeFromAnyMinus() {
         Radio radio = new Radio();
         radio.setCurrentVolume(-100);
         radio.decreaseVolume();
@@ -154,12 +127,13 @@ class RadioTest {
     }
 
     @Test
-    public void increaseVolumeFromAnyMinus() {
+    public void shouldIncreaseVolumeFromAnyMinus() {
         Radio radio = new Radio();
         radio.setCurrentVolume(-100);
         radio.increaseVolume();
         assertEquals(1, radio.getCurrentVolume());
     }
 }
+
 
 
