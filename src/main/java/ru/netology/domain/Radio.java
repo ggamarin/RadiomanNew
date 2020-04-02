@@ -1,5 +1,12 @@
  package ru.netology.domain;
 
+ import lombok.AllArgsConstructor;
+ import lombok.Data;
+ import lombok.NoArgsConstructor;
+
+ @Data
+ @NoArgsConstructor
+ @AllArgsConstructor
 public class Radio {
     private int maxVolume = 100;
     private int minVolume = 0;
@@ -8,9 +15,6 @@ public class Radio {
     private int currentVolume;
     private int currentChannel;
 
-    public Radio() {
-    }
-
     public Radio(int maxChannel) {
         this.maxChannel = maxChannel;
     }
@@ -18,15 +22,6 @@ public class Radio {
     public Radio(int currentChannel, int maxChannel) {
         this.currentChannel = currentChannel;
         this.maxChannel = maxChannel;
-    }
-
-    public Radio(int maxVolume, int minVolume, int maxChannel, int minChannel, int currentVolume, int currentChannel) {
-        this.maxVolume = maxVolume;
-        this.minVolume = minVolume;
-        this.maxChannel = maxChannel;
-        this.minChannel = minChannel;
-        this.currentVolume = currentVolume;
-        this.currentChannel = currentChannel;
     }
 
     public void increaseVolume() {
@@ -59,18 +54,6 @@ public class Radio {
         currentChannel--;
     }
 
-    public int getMaxVolume() {
-        return maxVolume;
-    }
-
-    public int getMinVolume() {
-        return minVolume;
-    }
-
-    public int getCurrentVolume() {
-        return currentVolume;
-    }
-
     public void setCurrentVolume(int currentVolume) {
         if (currentVolume > maxVolume) {
             this.currentVolume = maxVolume;
@@ -81,18 +64,6 @@ public class Radio {
             return;
         }
         this.currentVolume = currentVolume;
-    }
-
-    public int getMaxChannel() {
-        return maxChannel;
-    }
-
-    public int getMinChannel() {
-        return minChannel;
-    }
-
-    public int getCurrentChannel() {
-        return currentChannel;
     }
 
     public void setCurrentChannel(int currentChannel) {
